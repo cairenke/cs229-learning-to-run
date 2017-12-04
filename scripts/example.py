@@ -41,16 +41,17 @@ nb_actions = env.action_space.shape[0]
 # Total number of steps in training
 nallsteps = args.steps
 
+scalar = 1
 # Create networks for DDPG
 # Next, we build a very simple model.
 actor = Sequential()
 actor.add(Flatten(input_shape=(1,) + env.observation_space.shape))
-actor.add(Dense(32*4))
+actor.add(Dense(32*scalar))
 actor.add(Activation('relu'))
-actor.add(Dense(32*4))
+actor.add(Dense(32*scalar))
 actor.add(Activation('relu'))
-# actor.add(Dense(32*4))
-# actor.add(Activation('relu'))
+actor.add(Dense(32*scalar))
+actor.add(Activation('relu'))
 actor.add(Dense(nb_actions))
 actor.add(Activation('sigmoid'))
 print(actor.summary())
@@ -59,12 +60,12 @@ action_input = Input(shape=(nb_actions,), name='action_input')
 observation_input = Input(shape=(1,) + env.observation_space.shape, name='observation_input')
 flattened_observation = Flatten()(observation_input)
 x = concatenate([action_input, flattened_observation])
-x = Dense(64*2)(x)
+x = Dense(64*scalar)(x)
 x = Activation('relu')(x)
-x = Dense(64*2)(x)
+x = Dense(64*scalar)(x)
 x = Activation('relu')(x)
-# x = Dense(64)(x)
-# x = Activation('relu')(x)
+x = Dense(64*scalar)(x)
+x = Activation('relu')(x)
 x = Dense(1)(x)
 x = Activation('linear')(x)
 critic = Model(inputs=[action_input, observation_input], outputs=x)
@@ -89,29 +90,6 @@ if args.train:
     agent.fit(env, nb_steps=nallsteps, visualize=False, verbose=1, nb_max_episode_steps=env.timestep_limit, log_interval=10000)
     # After training is done, we save the final weights.
     agent.save_weights(args.model, overwrite=True)
-
-# If TEST and TOKEN, submit to crowdAI
-if not args.train and args.token:
-    agent.load_weights(args.model)
-    # Settings
-    remote_base = 'http://grader.crowdai.org:1729'
-    client = Client(remote_base)
-
-    # Create environment
-    observation = client.env_create(args.token)
-
-    # Run a single step
-    # The grader runs 3 simulations of at most 1000 steps each. We stop after the last one
-    while True:
-        v = np.array(observation).reshape((env.observation_space.shape[0]))
-        action = agent.forward(v)
-        [observation, reward, done, info] = client.env_step(action.tolist())
-        if done:
-            observation = client.env_reset()
-            if not observation:
-                break
-
-    client.submit()
 
 # If TEST and no TOKEN, run some test experiments
 if not args.train and not args.token:
