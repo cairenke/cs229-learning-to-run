@@ -41,7 +41,7 @@ nb_actions = env.action_space.shape[0]
 # Total number of steps in training
 nallsteps = args.steps
 
-scalar = 1
+scalar = 4
 # Create networks for DDPG
 # Next, we build a very simple model.
 actor = Sequential()
@@ -95,4 +95,6 @@ if args.train:
 if not args.train and not args.token:
     agent.load_weights(args.model)
     # Finally, evaluate our algorithm for 1 episode.
+    env = RunEnv(args.visualize, 3)
+    env.reset()  # difficulty = 2, seed = None)
     agent.test(env, nb_episodes=1, visualize=False, nb_max_episode_steps=500)

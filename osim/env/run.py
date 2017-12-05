@@ -14,6 +14,7 @@ def flatten(listOfLists):
 class RunEnv(OsimEnv):
     STATE_PELVIS_X = 1
     STATE_PELVIS_Y = 2
+    STATE_PELVIS_V_X = 4
     MUSCLES_PSOAS_R = 3
     MUSCLES_PSOAS_L = 11
 
@@ -29,7 +30,8 @@ class RunEnv(OsimEnv):
     ninput = 41
     noutput = 18
 
-    def __init__(self, visualize = True, max_obstacles = 3):
+    def __init__(self, visualize=True, max_obstacles=3, original_reward=False):
+        self.original_reward = original_reward
         self.max_obstacles = max_obstacles
         super(RunEnv, self).__init__(visualize = False, noutput = self.noutput)
         self.osim_model.model.setUseVisualizer(visualize)
@@ -46,7 +48,7 @@ class RunEnv(OsimEnv):
         # create the new env
         # set up obstacles
         self.env_desc = self.generate_env(difficulty, seed, self.max_obstacles)
-        
+
         self.clear_obstacles(self.osim_model.state)
         for x,y,r in self.env_desc['obstacles']:
             self.add_obstacle(self.osim_model.state,x,y,r)
@@ -70,14 +72,21 @@ class RunEnv(OsimEnv):
             lig = opensim.CoordinateLimitForce.safeDownCast(self.osim_model.forceSet.get(j))
             lig_pen += lig.calcLimitForce(self.osim_model.state) ** 2
 
-        # Get the pelvis X delta
-        delta_x = self.current_state[self.STATE_PELVIS_X] - self.last_state[self.STATE_PELVIS_X]
+        if self.original_reward:
+            reward = self.current_state[self.STATE_PELVIS_X] - self.last_state[self.STATE_PELVIS_X]
+        else:
+            reward = self.current_state[self.STATE_PELVIS_V_X] * 0.01
+            reward += 0.01  # small reward for still standing
+            reward += min(0, self.current_state[22] - self.current_state[
+                self.STATE_PELVIS_X]) * 0.1  # penalty for head behind pelvis
+            reward -= sum([max(0.0, k - 0.1) for k in
+                           [self.current_state[7], self.current_state[10]]]) * 0.02  # penalty for straight legs
 
-        return delta_x - math.sqrt(lig_pen) * 10e-8
+        return reward - math.sqrt(lig_pen) * 10e-8
 
     def is_pelvis_too_low(self):
         return (self.current_state[self.STATE_PELVIS_Y] < 0.65)
-    
+
     def is_done(self):
         return self.is_pelvis_too_low() or (self.istep >= self.spec.timestep_limit)
 
@@ -118,7 +127,7 @@ class RunEnv(OsimEnv):
                 ret[0] = ret[0] - x
                 return ret
         return [100,0,0]
-        
+
     def _step(self, action):
         self.last_state = self.current_state
         return super(RunEnv, self)._step(action)
@@ -133,13 +142,13 @@ class RunEnv(OsimEnv):
         joint_angles = [self.osim_model.get_joint(jnts[i]).getCoordinate().getValue(self.osim_model.state) for i in range(6)]
         joint_vel = [self.osim_model.get_joint(jnts[i]).getCoordinate().getSpeedValue(self.osim_model.state) for i in range(6)]
 
-        mass_pos = [self.osim_model.model.calcMassCenterPosition(self.osim_model.state)[i] for i in range(2)]  
+        mass_pos = [self.osim_model.model.calcMassCenterPosition(self.osim_model.state)[i] for i in range(2)]
         mass_vel = [self.osim_model.model.calcMassCenterVelocity(self.osim_model.state)[i] for i in range(2)]
 
         body_transforms = [[self.osim_model.get_body(body).getTransformInGround(self.osim_model.state).p()[i] for i in range(2)] for body in bodies]
 
         muscles = [ self.env_desc['muscles'][self.MUSCLES_PSOAS_L], self.env_desc['muscles'][self.MUSCLES_PSOAS_R] ]
-    
+
         # see the next obstacle
         obstacle = self.next_obstacle()
 
@@ -171,13 +180,13 @@ class RunEnv(OsimEnv):
 
             force = opensim.HuntCrossleyForce()
             force.setName(name + '-force')
-            
+
             force.addGeometry(name + '-contact')
             force.addGeometry("r_heel")
             force.addGeometry("l_heel")
             force.addGeometry("r_toe")
             force.addGeometry("l_toe")
-        
+
             force.setStiffness(1.0e6/r)
             force.setDissipation(1e-5)
             force.setStaticFriction(0.0)
@@ -202,7 +211,7 @@ class RunEnv(OsimEnv):
 
         self.num_obstacles = 0
         pass
-        
+
     def add_obstacle(self, state, x, y, r):
         # set obstacle number num_obstacles
         contact_generic = self.osim_model.get_contact_geometry("%d-contact" % self.num_obstacles)
@@ -215,8 +224,8 @@ class RunEnv(OsimEnv):
 
         joint_generic = self.osim_model.get_joint("%d-joint" % self.num_obstacles)
         joint = opensim.PlanarJoint.safeDownCast(joint_generic)
-        
-        newpos = [x,y] 
+
+        newpos = [x,y]
         for i in range(2):
             joint.getCoordinate(1 + i).setLocked(state, False)
             joint.getCoordinate(1 + i).setValue(state, newpos[i], False)
@@ -234,7 +243,7 @@ class RunEnv(OsimEnv):
         xs = []
         ys = []
         rs = []
-        
+
         if 0 < difficulty:
             num_obstacles = min(3, max_obstacles)
             xs = np.random.uniform(1.0, 5.0, num_obstacles)
@@ -260,7 +269,7 @@ class RunEnv(OsimEnv):
             lpsoas = max(0.5, lpsoas)
 
         muscles = [1] * 18
-            
+
         # modify only psoas
         muscles[self.MUSCLES_PSOAS_R] = rpsoas
         muscles[self.MUSCLES_PSOAS_L] = lpsoas
