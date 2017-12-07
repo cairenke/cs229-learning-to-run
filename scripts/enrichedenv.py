@@ -17,7 +17,7 @@ class EnrichedRunEnv(RunEnv):
 
     ninput = 41 + 6 + 10 #61
 
-    def __init__(self, visualize=True, max_obstacles=3, original_reward=True):
+    def __init__(self, visualize=True, max_obstacles=3, original_reward=False):
         RunEnv.__init__(self, visualize, max_obstacles)
         self.original_reward = original_reward
 
@@ -42,7 +42,6 @@ class EnrichedRunEnv(RunEnv):
 
             reward = min(v_x, 4) - 0.005 * (v_x * v_x + v_y * v_y) - 0.05 * y * y + 0.02
             # print('final reward {0}'.format(reward))
-            # reward = self.current_state[self.STATE_PELVIS_X] - self.last_state[self.STATE_PELVIS_X]
             # reward += 0.01  # small reward for still standing
             # # use velocity
             # # reward = self.current_state[self.STATE_PELVIS_V_X] * 0.01
