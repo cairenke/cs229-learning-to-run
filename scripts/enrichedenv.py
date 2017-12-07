@@ -158,7 +158,7 @@ class EnrichedRunEnv(RunEnv):
 
         self.current_state = self.process_observation(info)
 
-        # print('len is {0} step {1}'.format(len(self.current_state), self.istep))
+        #print('step {0} head pos is {1} {2}  pelvis {3}'.format(self.istep, self.current_state[self.STATE_HEAD_X], self.current_state[self.STATE_HEAD_Y], self.current_state[self.STATE_PELVIS_Y]))
         # print(self.current_state)
         return self.current_state
 
