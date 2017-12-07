@@ -1,10 +1,6 @@
 from osim.env.run import RunEnv
 import opensim
 import math
-import numpy as np
-import os
-import random
-import string
 from itertools import chain
 
 def flatten(listOfLists):
@@ -14,6 +10,14 @@ def flatten(listOfLists):
 class EnrichedRunEnv(RunEnv):
     STATE_PELVIS_V_X = 4
     STATE_PELVIS_V_Y = 5
+    STATE_HEAD_X = 22
+    STATE_HEAD_Y = 23
+    STATE_HEAD_V_X = 24
+    STATE_HEAD_V_Y = 25
+    STATE_TORSO_X = 26
+    STATE_TORSO_Y = 27
+    STATE_TORSO_V_X = 47
+    STATE_TORSO_V_Y = 48
 
     ninput = 41 + 6 + 10 #61
 
@@ -45,7 +49,7 @@ class EnrichedRunEnv(RunEnv):
             # reward += 0.01  # small reward for still standing
             # # use velocity
             # # reward = self.current_state[self.STATE_PELVIS_V_X] * 0.01
-            reward += min(0, self.current_state[22]) * 0.01  # penalty for head behind pelvis
+            reward += min(0, self.current_state[self.STATE_HEAD_X]) * 0.01  # penalty for head behind pelvis
             # reward -= sum([max(0.0, k - 0.1) for k in
             #                [self.current_state[7], self.current_state[10]]]) * 0.02  # penalty for straight legs
 
@@ -54,67 +58,50 @@ class EnrichedRunEnv(RunEnv):
     def process_observation(self, input):
         _stepsize = 0.01
 
-        o = list(input)  # an array
-        '''
-        observation:
-        0 pelvis r
-        1 x
-        2 y
-        3 pelvis vr
-        4 vx
-        5 vy
-        '''
-        pr = o[0]
-        px = o[1]
-        py = o[2]
-        pvr = o[3]
-        pvx = o[4]
-        pvy = o[5]
+        output = list(input)
+        px = output[self.STATE_PELVIS_X]
+        py = output[self.STATE_PELVIS_Y]
+        pvx = output[self.STATE_PELVIS_V_X]
+        pvy = output[self.STATE_PELVIS_V_Y]
 
-        # 'hip_r','knee_r','ankle_r','hip_l','knee_l','ankle_l'
-        # angle, and angle velocity
-        # for i in range(6, 18):
-        #     o[i] /= 4
+        # 'head', 'pelvis', 'torso', 'toes_l', 'toes_r', 'talus_l', 'talus_r'
+        # change x and y relative to pelvis
+        for i in range(7):
+            output[self.STATE_HEAD_X + i * 2 + 0] -= px
+            output[self.STATE_HEAD_X + i * 2 + 1] -= py
 
-        # append body parts velocity information
-        o = o + [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        # compute body parts velocity information
+        output = output + [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         if self.istep == 0:
-            o[24] = 0
-            o[25] = 0
+            output[self.STATE_HEAD_V_X] = 0
+            output[self.STATE_HEAD_V_Y] = 0
         else:
             # Head velocity
-            o[24] = (o[22] - self.last_state[22]) / _stepsize - pvx
-            o[25] = (o[23] - self.last_state[23]) / _stepsize - pvy
+            output[self.STATE_HEAD_V_X] = (output[self.STATE_HEAD_X] - self.last_state[self.STATE_HEAD_X]) / _stepsize
+            output[self.STATE_HEAD_V_Y] = (output[self.STATE_HEAD_Y] - self.last_state[self.STATE_HEAD_Y]) / _stepsize
+
+            # print('speed vx {0} {1}  curr {2} last {3}'.format(output[self.STATE_HEAD_V_X], output[self.STATE_HEAD_V_Y], output[23], self.last_state[23]))
 
             for i in range(5):
-                offset = i * 2 + 0
-                o[47 + offset] = (o[26 + offset] - self.last_state[26 + offset]) / _stepsize - pvx
-                offset += 1
-                o[47 + offset] = (o[26 + offset] - self.last_state[26 + offset]) / _stepsize - pvy
+                offset = i * 2
+                output[self.STATE_TORSO_V_X + offset] = (output[self.STATE_TORSO_X + offset] - self.last_state[self.STATE_TORSO_X + offset]) / _stepsize
+                output[self.STATE_TORSO_V_Y + offset] = (output[self.STATE_TORSO_Y + offset] - self.last_state[self.STATE_TORSO_Y + offset]) / _stepsize
 
-        # change x and y relative to pelvis
-        # 'head', 'pelvis', 'torso', 'toes_l', 'toes_r', 'talus_l', 'talus_r'
-        for i in range(7):
-            # skip pelvis
-            if i == 1:
-                continue
-            o[22 + i * 2 + 0] -= px
-            o[22 + i * 2 + 1] -= py
 
         # mass
-        o[18] -= px  # mass pos xy made relative
-        o[19] -= py
-        o[20] -= pvx  # mass vel xy made relative
-        o[21] -= pvy
+        output[18] -= px  # mass pos xy made relative
+        output[19] -= py
+        output[20] -= pvx  # mass vel xy made relative
+        output[21] -= pvy
 
-        # o[0] /= 2  # divide pr by 4
-        # o[1] = 0  # abs value of pel x should not be included
-        # o[2] -= 0.9  # minus py by 0.5
-        # o[3] /= 4  # divide pvr by 4
-        # o[4] /= 8  # divide pvx by 10
-        # o[5] /= 1  # pvy is okay
+        # output[0] /= 2  # divide pr by 4
+        output[1] = 0  # abs value of pel x should not be included
+        # output[2] -= 0.9  # minus py by 0.5
+        # output[3] /= 4  # divide pvr by 4
+        # output[4] /= 8  # divide pvx by 10
+        # output[5] /= 1  # pvy is okay
 
-        return o
+        return output
 
 
     def find_obstacles(self, x, limit):
@@ -132,7 +119,8 @@ class EnrichedRunEnv(RunEnv):
                 info[2] = 0
             else:
                 info[0] -= x
-                ret.append(info)
+
+            ret.append(info)
             counter += 1
 
         if counter < limit:
@@ -141,9 +129,6 @@ class EnrichedRunEnv(RunEnv):
 
         return ret
 
-    last_step = None
-    last_body_transformation = None
-    all_obstacles = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
     def get_observation(self):
 
@@ -166,6 +151,8 @@ class EnrichedRunEnv(RunEnv):
         # see the next obstacle
         obstacle = list(flatten(self.find_obstacles(pelvis_pos[1], 3)))
 
+        # print('obstacle {0}'.format(obstacle))
+
         # feet = [opensim.HuntCrossleyForce.safeDownCast(self.osim_model.forceSet.get(j)) for j in range(20,22)]
         info = pelvis_pos + pelvis_vel + joint_angles + joint_vel + mass_pos + mass_vel + list(flatten(body_transforms)) + muscles + obstacle
 
@@ -174,3 +161,4 @@ class EnrichedRunEnv(RunEnv):
         # print('len is {0} step {1}'.format(len(self.current_state), self.istep))
         # print(self.current_state)
         return self.current_state
+
