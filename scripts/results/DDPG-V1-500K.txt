@@ -1,0 +1,42 @@
+10000/10000 [==============================] - 752s - reward: -0.0071
+79 episodes - episode_reward: -0.910 [-0.971, -0.848] - loss: 0.002 - mean_absolute_error: 0.011 - mean_q: -0.642
+
+Interval 41 (400000 steps performed)
+10000/10000 [==============================] - 748s - reward: -0.0071
+78 episodes - episode_reward: -0.911 [-0.990, -0.860] - loss: 0.002 - mean_absolute_error: 0.011 - mean_q: -0.645
+
+Interval 42 (410000 steps performed)
+10000/10000 [==============================] - 748s - reward: -0.0072
+79 episodes - episode_reward: -0.912 [-0.977, -0.849] - loss: 0.002 - mean_absolute_error: 0.011 - mean_q: -0.646
+
+Interval 43 (420000 steps performed)
+10000/10000 [==============================] - 740s - reward: -0.0072
+77 episodes - episode_reward: -0.918 [-1.024, -0.857] - loss: 0.002 - mean_absolute_error: 0.011 - mean_q: -0.647
+
+Interval 44 (430000 steps performed)
+10000/10000 [==============================] - 734s - reward: -0.0073
+78 episodes - episode_reward: -0.942 [-1.016, -0.869] - loss: 0.002 - mean_absolute_error: 0.011 - mean_q: -0.648
+
+Interval 45 (440000 steps performed)
+10000/10000 [==============================] - 749s - reward: -0.0073
+78 episodes - episode_reward: -0.940 [-1.002, -0.876] - loss: 0.002 - mean_absolute_error: 0.011 - mean_q: -0.648
+
+Interval 46 (450000 steps performed)
+10000/10000 [==============================] - 750s - reward: -0.0072
+77 episodes - episode_reward: -0.937 [-0.998, -0.872] - loss: 0.002 - mean_absolute_error: 0.011 - mean_q: -0.649
+
+Interval 47 (460000 steps performed)
+10000/10000 [==============================] - 751s - reward: -0.0072
+78 episodes - episode_reward: -0.927 [-0.998, -0.861] - loss: 0.002 - mean_absolute_error: 0.011 - mean_q: -0.651
+
+Interval 48 (470000 steps performed)
+10000/10000 [==============================] - 753s - reward: -0.0072
+79 episodes - episode_reward: -0.912 [-0.967, -0.837] - loss: 0.001 - mean_absolute_error: 0.011 - mean_q: -0.640
+
+Interval 49 (480000 steps performed)
+10000/10000 [==============================] - 756s - reward: -0.0072
+79 episodes - episode_reward: -0.913 [-0.991, -0.844] - loss: 0.000 - mean_absolute_error: 0.007 - mean_q: -0.608
+
+Interval 50 (490000 steps performed)
+10000/10000 [==============================] - 752s - reward: -0.0072
+done, took 39250.127 seconds

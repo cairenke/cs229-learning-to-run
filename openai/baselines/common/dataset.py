@@ -46,8 +46,8 @@ class Dataset(object):
             data_map[key] = self.data_map[key][:num_elements]
         return Dataset(data_map, deterministic)
 
-
-def iterbatches(arrays, *, num_batches=None, batch_size=None, shuffle=True, include_final_partial_batch=True):
+# def iterbatches(arrays, *, num_batches=None, batch_size=None, shuffle=True, include_final_partial_batch=True):
+def iterbatches(arrays, num_batches=None, batch_size=None, shuffle=True, include_final_partial_batch=True):
     assert (num_batches is None) != (batch_size is None), 'Provide num_batches or batch_size, but not both'
     arrays = tuple(map(np.asarray, arrays))
     n = arrays[0].shape[0]
