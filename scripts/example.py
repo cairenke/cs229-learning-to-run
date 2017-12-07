@@ -21,6 +21,7 @@ from keras.optimizers import RMSprop
 
 import argparse
 import math
+from enrichedenv import EnrichedRunEnv
 
 # Command line parameters
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller')
@@ -33,7 +34,7 @@ parser.add_argument('--token', dest='token', action='store', required=False)
 args = parser.parse_args()
 
 # Load walking environment
-env = RunEnv(args.visualize)
+env = EnrichedRunEnv(args.visualize)
 env.reset() #difficulty = 2, seed = None)
 
 nb_actions = env.action_space.shape[0]
@@ -41,7 +42,7 @@ nb_actions = env.action_space.shape[0]
 # Total number of steps in training
 nallsteps = args.steps
 
-scalar = 4
+scalar = 2
 # Create networks for DDPG
 # Next, we build a very simple model.
 actor = Sequential()
@@ -74,9 +75,15 @@ print(critic.summary())
 # Set up the agent for training
 memory = SequentialMemory(limit=100000, window_length=1)
 random_process = OrnsteinUhlenbeckProcess(theta=.15, mu=0., sigma=.2, size=env.noutput)
+# agent = DDPGAgent(nb_actions=nb_actions, actor=actor, critic=critic, critic_action_input=action_input,
+#                  memory=memory, nb_steps_warmup_critic=100, nb_steps_warmup_actor=100,
+#                  random_process=random_process, gamma=.99, target_model_update=1e-3,
+#                  delta_clip=1.)
+
+# set gamma to 0.995
 agent = DDPGAgent(nb_actions=nb_actions, actor=actor, critic=critic, critic_action_input=action_input,
                  memory=memory, nb_steps_warmup_critic=100, nb_steps_warmup_actor=100,
-                 random_process=random_process, gamma=.99, target_model_update=1e-3,
+                 random_process=random_process, gamma=.995, target_model_update=1e-3,
                  delta_clip=1.)
 # agent = ContinuousDQNAgent(nb_actions=env.noutput, V_model=V_model, L_model=L_model, mu_model=mu_model,
 #                            memory=memory, nb_steps_warmup=1000, random_process=random_process,
@@ -95,6 +102,6 @@ if args.train:
 if not args.train and not args.token:
     agent.load_weights(args.model)
     # Finally, evaluate our algorithm for 1 episode.
-    env = RunEnv(args.visualize, 3)
+    env = EnrichedRunEnv(args.visualize, 3)
     env.reset()  # difficulty = 2, seed = None)
     agent.test(env, nb_episodes=1, visualize=False, nb_max_episode_steps=500)
