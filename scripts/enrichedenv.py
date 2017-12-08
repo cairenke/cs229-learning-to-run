@@ -37,7 +37,7 @@ class EnrichedRunEnv(RunEnv):
 
         if self.reward_type == 0:
             reward = self.current_position - self.last_position
-        elif self.reward_range == 1:
+        elif self.reward_type == 1:
             # use velocity
             reward = self.current_state[self.STATE_PELVIS_V_X] * 0.01
             reward += 0.01  # small reward for still standing
