@@ -31,10 +31,11 @@ parser.add_argument('--steps', dest='steps', action='store', default=10000, type
 parser.add_argument('--visualize', dest='visualize', action='store_true', default=False)
 parser.add_argument('--model', dest='model', action='store', default="example.h5f")
 parser.add_argument('--token', dest='token', action='store', required=False)
+parser.add_argument('--reward', dest='reward', action='store', default=0, type=int)
 args = parser.parse_args()
 
 # Load walking environment
-env = EnrichedRunEnv(args.visualize)
+env = EnrichedRunEnv(args.visualize, 3, args.reward)
 env.reset() #difficulty = 2, seed = None)
 
 nb_actions = env.action_space.shape[0]
@@ -42,7 +43,7 @@ nb_actions = env.action_space.shape[0]
 # Total number of steps in training
 nallsteps = args.steps
 
-scalar = 2
+scalar = 1
 # Create networks for DDPG
 # Next, we build a very simple model.
 actor = Sequential()
@@ -102,6 +103,5 @@ if args.train:
 if not args.train and not args.token:
     agent.load_weights(args.model)
     # Finally, evaluate our algorithm for 1 episode.
-    env = EnrichedRunEnv(args.visualize, 3)
     env.reset()  # difficulty = 2, seed = None)
     agent.test(env, nb_episodes=1, visualize=False, nb_max_episode_steps=500)
