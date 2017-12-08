@@ -24,7 +24,6 @@ parser.add_argument('--repeat', dest='repeat', action='store_true', default=Fals
 parser.add_argument('--reward', dest='reward', action='store', default=0, type=int)
 parser.add_argument('--obstacles', dest='obstacles', action='store', default=3, type=int)
 parser.add_argument('--test', dest='test', action='store_true', default=False)
-parser.add_argument('--submit', dest='submit', action='store_true', default=False)
 parser.add_argument('--steps', dest='steps', action='store', default=10000, type=int)
 parser.add_argument('--batch', dest='batch', action='store', default=2048, type=int)
 parser.add_argument('--max_steps', dest='max_steps', action='store', default=1000, type=int)
@@ -153,7 +152,7 @@ if args.train:
         save_model()
 
     if args.repeat:
-        cmd = 'python run_osim.py --repeat --train --model %s --steps %s --size %s' % (args.model, args.steps, args.size)
+        cmd = 'python run_ppo.py --repeat --train --model %s --steps %s --size %s' % (args.model, args.steps, args.size)
         subprocess.call(cmd.split(' '))
 
 if args.test:
