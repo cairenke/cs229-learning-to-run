@@ -21,7 +21,7 @@ from enrichedenv import EnrichedRunEnv
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller')
 parser.add_argument('--train', dest='train', action='store_true', default=False)
 parser.add_argument('--repeat', dest='repeat', action='store_true', default=False)
-parser.add_argument('--original', dest='original', action='store_true', default=False)
+parser.add_argument('--reward', dest='reward', action='store', default=0, type=int)
 parser.add_argument('--obstacles', dest='obstacles', action='store', default=3, type=int)
 parser.add_argument('--test', dest='test', action='store_true', default=False)
 parser.add_argument('--submit', dest='submit', action='store_true', default=False)
@@ -111,7 +111,7 @@ session = U.single_threaded_session()
 session.__enter__()
 logger.session().__enter__()
 
-env = EnrichedRunEnv(args.visualize) #, max_obstacles=args.obstacles
+env = EnrichedRunEnv(args.visualize, 3, args.reward) #, max_obstacles=args.obstacles
 env.spec.timestep_limit = args.max_steps
 if args.visualize:
     vis = env.osim_model.model.updVisualizer().updSimbodyVisualizer()

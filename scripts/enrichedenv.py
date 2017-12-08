@@ -21,9 +21,11 @@ class EnrichedRunEnv(RunEnv):
 
     ninput = 41 + 6 + 10 #61
 
-    def __init__(self, visualize=True, max_obstacles=3, original_reward=False):
+    def __init__(self, visualize=True, max_obstacles=3, reward_type=0):
         RunEnv.__init__(self, visualize, max_obstacles)
-        self.original_reward = original_reward
+        self.reward_type = reward_type
+        self.last_position = 0
+        self.current_position = 0
 
     def compute_reward(self):
         # Compute ligaments penalty
@@ -33,22 +35,24 @@ class EnrichedRunEnv(RunEnv):
             lig = opensim.CoordinateLimitForce.safeDownCast(self.osim_model.forceSet.get(j))
             lig_pen += lig.calcLimitForce(self.osim_model.state) ** 2
 
-        if self.original_reward:
-            reward = self.current_state[self.STATE_PELVIS_X] - self.last_state[self.STATE_PELVIS_X]
+        if self.reward_type == 0:
+            reward = self.current_position - self.last_position
         else:
             v_x = self.current_state[self.STATE_PELVIS_V_X]
             v_y = self.current_state[self.STATE_PELVIS_V_Y]
             y = self.current_state[self.STATE_PELVIS_Y]
 
+            # reward = min(v_x, 4) - 0.005 * (v_x * v_x + v_y * v_y) - 0.05 * y * y + 0.02
+
+
             # reward = self.current_state[self.STATE_PELVIS_X] - self.last_state[self.STATE_PELVIS_X]
             # print('original reward {0}'.format(reward))
             # print('speed x {0} combo {1} y square {2}'.format(abs(v_x), 0.005 * (v_x * v_x + v_y * v_y), 0.05 * y * y))
 
-            reward = min(v_x, 4) - 0.005 * (v_x * v_x + v_y * v_y) - 0.05 * y * y + 0.02
             # print('final reward {0}'.format(reward))
-            # reward += 0.01  # small reward for still standing
-            # # use velocity
-            # # reward = self.current_state[self.STATE_PELVIS_V_X] * 0.01
+            # use velocity
+            reward = self.current_state[self.STATE_PELVIS_V_X] * 0.01
+            reward += 0.01  # small reward for still standing
             reward += min(0, self.current_state[self.STATE_HEAD_X]) * 0.01  # penalty for head behind pelvis
             # reward -= sum([max(0.0, k - 0.1) for k in
             #                [self.current_state[7], self.current_state[10]]]) * 0.02  # penalty for straight legs
@@ -136,6 +140,13 @@ class EnrichedRunEnv(RunEnv):
 
         pelvis_pos = [self.pelvis.getCoordinate(i).getValue(self.osim_model.state) for i in range(3)]
         pelvis_vel = [self.pelvis.getCoordinate(i).getSpeedValue(self.osim_model.state) for i in range(3)]
+
+        if self.istep == 0:
+            self.last_position = 0
+            self.current_position = pelvis_pos[1]
+        else:
+            self.last_position = self.current_position
+            self.current_position = pelvis_pos[1]
 
         jnts = ['hip_r','knee_r','ankle_r','hip_l','knee_l','ankle_l']
         joint_angles = [self.osim_model.get_joint(jnts[i]).getCoordinate().getValue(self.osim_model.state) for i in range(6)]
