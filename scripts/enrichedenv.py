@@ -37,25 +37,16 @@ class EnrichedRunEnv(RunEnv):
 
         if self.reward_type == 0:
             reward = self.current_position - self.last_position
-        else:
-            v_x = self.current_state[self.STATE_PELVIS_V_X]
-            v_y = self.current_state[self.STATE_PELVIS_V_Y]
-            y = self.current_state[self.STATE_PELVIS_Y]
-
-            # reward = min(v_x, 4) - 0.005 * (v_x * v_x + v_y * v_y) - 0.05 * y * y + 0.02
-
-
-            # reward = self.current_state[self.STATE_PELVIS_X] - self.last_state[self.STATE_PELVIS_X]
-            # print('original reward {0}'.format(reward))
-            # print('speed x {0} combo {1} y square {2}'.format(abs(v_x), 0.005 * (v_x * v_x + v_y * v_y), 0.05 * y * y))
-
-            # print('final reward {0}'.format(reward))
+        elif self.reward_range == 1:
             # use velocity
             reward = self.current_state[self.STATE_PELVIS_V_X] * 0.01
             reward += 0.01  # small reward for still standing
             reward += min(0, self.current_state[self.STATE_HEAD_X]) * 0.01  # penalty for head behind pelvis
-            # reward -= sum([max(0.0, k - 0.1) for k in
-            #                [self.current_state[7], self.current_state[10]]]) * 0.02  # penalty for straight legs
+        else:
+            v_x = self.current_state[self.STATE_PELVIS_V_X]
+            v_y = self.current_state[self.STATE_PELVIS_V_Y]
+            y = self.current_state[self.STATE_PELVIS_Y]
+            reward = min(v_x, 4) - 0.005 * (v_x * v_x + v_y * v_y) - 0.05 * y * y + 0.02
 
         return reward - math.sqrt(lig_pen) * 10e-8
 
