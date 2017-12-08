@@ -17,7 +17,6 @@ import opensim
 import summarize
 from enrichedenv import EnrichedRunEnv
 
-
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller')
 parser.add_argument('--train', dest='train', action='store_true', default=False)
 parser.add_argument('--repeat', dest='repeat', action='store_true', default=False)
@@ -30,7 +29,7 @@ parser.add_argument('--max_steps', dest='max_steps', action='store', default=100
 parser.add_argument('--optim_batch', dest='optim_batch', action='store', default=64, type=int)
 parser.add_argument('--size', dest='size', action='store', default=64, type=int)
 parser.add_argument('--layers', dest='layers', action='store', default=2, type=int)
-parser.add_argument('--cores', dest='cores', action='store', default=4, type=int)
+parser.add_argument('--cores', dest='cores', action='store', default=1, type=int)
 parser.add_argument('--seed', dest='seed', action='store', default=randint(1, 1000000), type=int)
 parser.add_argument('--ent', dest='ent', action='store', default=0.0, type=float)
 parser.add_argument('--stepsize', dest='stepsize', action='store', default=0.0003, type=float)
@@ -38,15 +37,15 @@ parser.add_argument('--clip', dest='clip', action='store', default=0.2, type=flo
 parser.add_argument('--gamma', dest='gamma', action='store', default=0.99, type=float)
 parser.add_argument('--keep', dest='keep', action='store', default=1.0, type=float)
 parser.add_argument('--epochs', dest='epochs', action='store', default=10, type=int)
-parser.add_argument('--vis', dest='visualize', action='store_true', default=False)
+parser.add_argument('--visualize', dest='visualize', action='store_true', default=False)
 parser.add_argument('--verbose', dest='verbose', action='store_true', default=False)
 parser.add_argument('--model', dest='model', action='store', default='default')
 parser.add_argument('--activation', dest='activation', action='store', default='tanh')
 parser.add_argument('--schedule', dest='schedule', action='store', default='linear')
 args = parser.parse_args()
 
-if not (args.train or args.test or args.submit):
-    print('No action given, use --train, --test or --submit')
+if not (args.train or args.test):
+    print('No action given, use --train, or --test')
     exit(0)
 
 gym.logger.setLevel(logging.WARN)
@@ -58,10 +57,6 @@ def time():
 def policy_fn(name, ob_space, ac_space):
     return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
                                 hid_size=args.size, num_hid_layers=args.layers)
-    #     activation=args.activation,
-    #     keep=args.keep,
-    # )
-
 
 def plot_history(h, iteration=0):
     if iteration % 25 == 0 and MPI.COMM_WORLD.Get_rank() == 0:
@@ -156,7 +151,7 @@ if args.train:
         subprocess.call(cmd.split(' '))
 
 if args.test:
-    observation = env.reset()
+    observation = env.reset(2, 1013)
     pi = policy_fn('pi', env.observation_space, env.action_space)
 
     if not load_model():

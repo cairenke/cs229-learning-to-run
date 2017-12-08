@@ -1,26 +1,11 @@
 # Derived from keras-rl
-import opensim as osim
-import numpy as np
-import sys
-
 from keras.models import Sequential, Model
 from keras.layers import Dense, Activation, Flatten, Input, concatenate
 from keras.optimizers import Adam
-
-import numpy as np
-
 from rl.agents import DDPGAgent
-from rl.agents import ContinuousDQNAgent
 from rl.memory import SequentialMemory
 from rl.random import OrnsteinUhlenbeckProcess
-
-from osim.env import *
-from osim.http.client import Client
-
-from keras.optimizers import RMSprop
-
 import argparse
-import math
 from enrichedenv import EnrichedRunEnv
 
 # Command line parameters
@@ -44,6 +29,7 @@ nb_actions = env.action_space.shape[0]
 nallsteps = args.steps
 
 scalar = 1
+
 # Create networks for DDPG
 # Next, we build a very simple model.
 actor = Sequential()
@@ -76,19 +62,12 @@ print(critic.summary())
 # Set up the agent for training
 memory = SequentialMemory(limit=100000, window_length=1)
 random_process = OrnsteinUhlenbeckProcess(theta=.15, mu=0., sigma=.2, size=env.noutput)
-# agent = DDPGAgent(nb_actions=nb_actions, actor=actor, critic=critic, critic_action_input=action_input,
-#                  memory=memory, nb_steps_warmup_critic=100, nb_steps_warmup_actor=100,
-#                  random_process=random_process, gamma=.99, target_model_update=1e-3,
-#                  delta_clip=1.)
 
 # set gamma to 0.995
 agent = DDPGAgent(nb_actions=nb_actions, actor=actor, critic=critic, critic_action_input=action_input,
                  memory=memory, nb_steps_warmup_critic=100, nb_steps_warmup_actor=100,
                  random_process=random_process, gamma=.995, target_model_update=1e-3,
                  delta_clip=1.)
-# agent = ContinuousDQNAgent(nb_actions=env.noutput, V_model=V_model, L_model=L_model, mu_model=mu_model,
-#                            memory=memory, nb_steps_warmup=1000, random_process=random_process,
-#                            gamma=.99, target_model_update=0.1)
 agent.compile(Adam(lr=.001, clipnorm=1.), metrics=['mae'])
 
 # Okay, now it's time to learn something! We visualize the training here for show, but this
