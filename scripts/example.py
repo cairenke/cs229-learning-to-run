@@ -103,5 +103,5 @@ if args.train:
 if not args.train and not args.token:
     agent.load_weights(args.model)
     # Finally, evaluate our algorithm for 1 episode.
-    env.reset()  # difficulty = 2, seed = None)
+    env.reset(2, 1013)  # difficulty = 2, seed = None)
     agent.test(env, nb_episodes=1, visualize=False, nb_max_episode_steps=500)
