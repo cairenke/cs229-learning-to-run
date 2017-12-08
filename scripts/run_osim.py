@@ -158,7 +158,6 @@ if args.train:
 
 if args.test:
     observation = env.reset()
-    # observation = preprocess(observation, step=1, verbose=args.verbose)
     pi = policy_fn('pi', env.observation_space, env.action_space)
 
     if not load_model():
@@ -172,7 +171,6 @@ if args.test:
         observation, reward, done, info = env.step(action)
         if args.visualize:
             vis.pointCameraAt(opensim.Vec3(observation[1], 0, 0), opensim.Vec3(0, 1, 0))
-        # observation = preprocess(observation, step=steps + 2, verbose=args.verbose)
         total += reward
         env.render()
         steps += 1

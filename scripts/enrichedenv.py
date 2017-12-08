@@ -118,12 +118,11 @@ class EnrichedRunEnv(RunEnv):
             ret.append(info)
             counter += 1
 
-        if counter < limit:
+        while counter < limit:
             ret.append([0, 0, 0])
             counter += 1
 
         return ret
-
 
     def get_observation(self):
 
@@ -157,7 +156,6 @@ class EnrichedRunEnv(RunEnv):
 
         # feet = [opensim.HuntCrossleyForce.safeDownCast(self.osim_model.forceSet.get(j)) for j in range(20,22)]
         info = pelvis_pos + pelvis_vel + joint_angles + joint_vel + mass_pos + mass_vel + list(flatten(body_transforms)) + muscles + obstacle
-
         self.current_state = self.process_observation(info)
 
         #print('step {0} head pos is {1} {2}  pelvis {3}'.format(self.istep, self.current_state[self.STATE_HEAD_X], self.current_state[self.STATE_HEAD_Y], self.current_state[self.STATE_PELVIS_Y]))

@@ -2,12 +2,14 @@ from enrichedenv import EnrichedRunEnv
 
 env = EnrichedRunEnv(visualize=False, max_obstacles = 3)
 
-observation = env.reset()
-for i in range(200):
+level = 0
+seed = 13
+observation = env.reset(level, seed)
+for i in range(500):
     observation, reward, done, info = env.step(env.action_space.sample())
-    # print('reward {0} done {1} observation {2}'.format(reward, done, observation))
+    print('step {0} reward {1} distance {2}'.format(env.istep, reward, env.current_position))
     if done:
-        env.reset()
+        env.reset(level, seed)
         break
     
 
