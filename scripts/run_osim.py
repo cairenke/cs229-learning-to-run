@@ -11,11 +11,12 @@ from baselines import logger
 from baselines.common import tf_util as U
 from baselines.common.mpi_fork import mpi_fork
 from baselines.ppo1 import mlp_policy, pposgd_simple
-from osim.env import RunEnv
 from mpi4py import MPI
 import opensim
 
 import summarize
+from enrichedenv import EnrichedRunEnv
+
 
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller')
 parser.add_argument('--train', dest='train', action='store_true', default=False)
@@ -54,9 +55,6 @@ gym.logger.setLevel(logging.WARN)
 
 def time():
     return datetime.now().strftime('%H:%M:%S')
-
-
-
 
 def policy_fn(name, ob_space, ac_space):
     return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
@@ -113,7 +111,7 @@ session = U.single_threaded_session()
 session.__enter__()
 logger.session().__enter__()
 
-env = RunEnv(args.visualize) #, max_obstacles=args.obstacles, original_reward=args.original)
+env = EnrichedRunEnv(args.visualize) #, max_obstacles=args.obstacles
 env.spec.timestep_limit = args.max_steps
 if args.visualize:
     vis = env.osim_model.model.updVisualizer().updSimbodyVisualizer()

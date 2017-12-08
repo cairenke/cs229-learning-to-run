@@ -5,84 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="426af0e2-32ac-4eed-8c36-8815661303e4" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines.egg-info/PKG-INFO" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines.egg-info/SOURCES.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines.egg-info/dependency_links.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines.egg-info/requires.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines.egg-info/top_level.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/a2c/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/a2c/a2c.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/a2c/policies.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/a2c/run_atari.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/a2c/utils.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acer/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acer/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acer/acer_simple.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acer/buffer.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acer/policies.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acer/run_atari.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/acktr_cont.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/acktr_disc.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/filters.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/kfac.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/kfac_utils.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/policies.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/run_atari.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/run_mujoco.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/running_stat.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/utils.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/acktr/value_functions.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ddpg/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ddpg/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ddpg/ddpg.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ddpg/main.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ddpg/memory.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ddpg/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ddpg/noise.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ddpg/training.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ddpg/util.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/build_graph.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/atari/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/atari/download_model.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/atari/enjoy.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/atari/model.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/atari/train.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/atari/wang2015_eval.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/custom_cartpole.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/enjoy_cartpole.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/enjoy_mountaincar.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/enjoy_pong.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/run_atari.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/train_cartpole.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/experiments/train_mountaincar.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/replay_buffer.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/deepq/simple.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ppo2/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ppo2/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ppo2/policies.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ppo2/ppo2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ppo2/run_atari.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/ppo2/run_mujoco.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/trpo_mpi/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/trpo_mpi/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/trpo_mpi/nosharing_cnn_policy.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/trpo_mpi/run_atari.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/trpo_mpi/run_mujoco.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/openai/baselines/trpo_mpi/trpo_mpi.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/openai/baselines/a2c/__init__.py" afterPath="$PROJECT_DIR$/scripts/results/DDPG-V1-500K.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/cs229-osim-rl.iml" afterPath="$PROJECT_DIR$/.idea/cs229-osim-rl.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/openai/baselines/common/dataset.py" afterPath="$PROJECT_DIR$/openai/baselines/common/dataset.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/openai/baselines/common/mpi_adam.py" afterPath="$PROJECT_DIR$/openai/baselines/common/mpi_adam.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/openai/baselines/ppo1/mlp_policy.py" afterPath="$PROJECT_DIR$/openai/baselines/ppo1/mlp_policy.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/openai/baselines/ppo1/pposgd_simple.py" afterPath="$PROJECT_DIR$/openai/baselines/ppo1/pposgd_simple.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/openai/setup.py" afterPath="$PROJECT_DIR$/openai/setup.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/run_osim.py" afterPath="$PROJECT_DIR$/scripts/run_osim.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -94,113 +18,35 @@
   <component name="ChangesViewManager" flattened_view="false" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mlp_policy.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/openai/baselines/ppo1/mlp_policy.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="46" column="33" lean-forward="false" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
-              <folding>
-                <element signature="e#0#64#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="run_atari.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/openai/baselines/ppo1/run_atari.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
-              <caret line="28" column="35" lean-forward="true" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
-              <folding>
-                <element signature="e#23#45#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="run_mujoco.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/openai/baselines/ppo1/run_mujoco.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="14" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="run_osim.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scripts/run_osim.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="14" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pposgd_simple.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/openai/baselines/ppo1/pposgd_simple.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="203" column="0" lean-forward="false" selection-start-line="203" selection-start-column="0" selection-end-line="203" selection-end-column="0" />
+            <state relative-caret-position="748">
+              <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
               <folding>
-                <element signature="e#0#74#0" expanded="true" />
+                <element signature="e#0#15#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__builtin__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Library/Caches/PyCharmCE2017.2/python_stubs/1162791941/__builtin__.py">
+      <file leaf-file-name="enrichedenv.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/enrichedenv.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="397" column="4" lean-forward="false" selection-start-line="397" selection-start-column="4" selection-end-line="397" selection-end-column="4" />
+            <state relative-caret-position="300">
+              <caret line="23" column="8" lean-forward="false" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dataset.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/openai/baselines/common/dataset.py">
+      <file leaf-file-name="example.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/example.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mpi_adam.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/openai/baselines/common/mpi_adam.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="39" lean-forward="false" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
+            <state relative-caret-position="1075">
+              <caret line="104" column="24" lean-forward="false" selection-start-line="104" selection-start-column="10" selection-end-line="104" selection-end-column="24" />
               <folding>
-                <element signature="e#0#22#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/openai/setup.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#43#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cnn_policy.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/openai/baselines/ppo1/cnn_policy.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="42" column="26" lean-forward="false" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
+                <element signature="e#24#46#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -251,7 +97,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1280" />
     <option name="height" value="709" />
@@ -297,24 +143,6 @@
             <path>
               <item name="cs229-osim-rl" type="b2602c69:ProjectViewProjectNode" />
               <item name="cs229-osim-rl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="cs229-osim-rl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cs229-osim-rl" type="462c0819:PsiDirectoryNode" />
-              <item name="openai" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="cs229-osim-rl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cs229-osim-rl" type="462c0819:PsiDirectoryNode" />
-              <item name="openai" type="462c0819:PsiDirectoryNode" />
-              <item name="baselines" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="cs229-osim-rl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cs229-osim-rl" type="462c0819:PsiDirectoryNode" />
-              <item name="openai" type="462c0819:PsiDirectoryNode" />
-              <item name="baselines" type="462c0819:PsiDirectoryNode" />
-              <item name="ppo1" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="cs229-osim-rl" type="b2602c69:ProjectViewProjectNode" />
@@ -441,10 +269,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="709" extended-state="0" />
+    <frame x="0" y="23" width="2560" height="1360" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22374798" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22359015" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48054147" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -581,13 +409,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/example.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="42" column="22" lean-forward="true" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///anaconda/envs/opensim-rl/lib/python2.7/site-packages/gym/core.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
@@ -623,16 +444,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/enrichedenv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="87" column="8" lean-forward="false" selection-start-line="87" selection-start-column="8" selection-end-line="87" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -800,11 +611,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/example.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1075">
+          <caret line="104" column="24" lean-forward="false" selection-start-line="104" selection-start-column="10" selection-end-line="104" selection-end-column="24" />
+          <folding>
+            <element signature="e#24#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/enrichedenv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="23" column="8" lean-forward="false" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/run_osim.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="14" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-          <folding />
+        <state relative-caret-position="748">
+          <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
