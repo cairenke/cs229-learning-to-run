@@ -42,13 +42,18 @@ class EnrichedRunEnv(RunEnv):
             reward = self.current_state[self.STATE_PELVIS_V_X] * 0.01
             reward += 0.01  # small reward for still standing
             reward += min(0, self.current_state[self.STATE_HEAD_X]) * 0.01  # penalty for head behind pelvis
+        elif self.reward_type == 2:
+            reward = self.current_position - self.last_position
         else:
             v_x = self.current_state[self.STATE_PELVIS_V_X]
             v_y = self.current_state[self.STATE_PELVIS_V_Y]
             y = self.current_state[self.STATE_PELVIS_Y]
             reward = min(v_x, 4) - 0.005 * (v_x * v_x + v_y * v_y) - 0.05 * y * y + 0.02
 
-        return reward - math.sqrt(lig_pen) * 10e-8
+        if self.reward_type == 2:
+            return 10 * (reward - math.sqrt(lig_pen) * 10e-8)
+        else:
+            return reward - math.sqrt(lig_pen) * 10e-8
 
     def process_observation(self, input):
         _stepsize = 0.01
