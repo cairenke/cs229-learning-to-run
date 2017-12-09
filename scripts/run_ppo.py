@@ -1,21 +1,18 @@
 import argparse
 import logging
 import os
-import subprocess
 from datetime import datetime
 from random import randint
 
 import gym
+import opensim
 import tensorflow as tf
 from baselines import logger
 from baselines.common import tf_util as U
 from baselines.common.mpi_fork import mpi_fork
 from baselines.ppo1 import mlp_policy, pposgd_simple
-from mpi4py import MPI
-import opensim
-
-import summarize
 from enrichedenv import EnrichedRunEnv
+from mpi4py import MPI
 
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller')
 parser.add_argument('--train', dest='train', action='store_true', default=False)
@@ -58,16 +55,6 @@ def policy_fn(name, ob_space, ac_space):
     return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
                                 hid_size=args.size, num_hid_layers=args.layers)
 
-def plot_history(h, iteration=0):
-    if iteration % 25 == 0 and MPI.COMM_WORLD.Get_rank() == 0:
-        data = {
-            "EpRewMean": h["EpRewMean"],
-            "EpLenMean": h["EpLenMean"],
-            "loss_pol_surr": h["loss_pol_surr"],
-            "loss_kl": h["loss_kl"],
-        }
-        summarize.plot_diagrams(data, args.model)
-
 
 def load_model(iteration=0):
     if iteration <= 1 and os.path.exists(args.model + '.meta'):
@@ -91,7 +78,6 @@ def save_model(iteration=0):
 def on_iteration_start(local_vars, global_vars):
     on_iteration_start.iteration += 1
     load_model(on_iteration_start.iteration)
-    # plot_history(local_vars['history'], on_iteration_start.iteration)
     save_model(on_iteration_start.iteration)
 
 
@@ -105,7 +91,7 @@ session = U.single_threaded_session()
 session.__enter__()
 logger.session().__enter__()
 
-env = EnrichedRunEnv(args.visualize, 3, args.reward) #, max_obstacles=args.obstacles
+env = EnrichedRunEnv(args.visualize, 3, args.reward)
 env.spec.timestep_limit = args.max_steps
 if args.visualize:
     vis = env.osim_model.model.updVisualizer().updSimbodyVisualizer()
@@ -115,20 +101,11 @@ if args.visualize:
     vis.setCameraFieldOfView(1)
 
 if args.train:
-    # pposgd_simple.learn(env, policy_fn,
-    #         max_timesteps=num_timesteps,
-    #         timesteps_per_actorbatch=2048,
-    #         clip_param=0.2, entcoeff=0.0,
-    #         optim_epochs=10, optim_stepsize=3e-4, optim_batchsize=64,
-    #         gamma=0.99, lam=0.95, schedule='linear',
-    #     )
-
     history = pposgd_simple.learn(
         env,
         policy_fn,
         max_timesteps=args.steps,
         timesteps_per_actorbatch=args.batch,
-        # timesteps_per_batch=args.batch,
         clip_param=args.clip,
         entcoeff=args.ent,
         optim_epochs=args.epochs,
@@ -143,15 +120,10 @@ if args.train:
     env.close()
 
     if MPI.COMM_WORLD.Get_rank() == 0:
-        # plot_history(history)
         save_model()
 
-    if args.repeat:
-        cmd = 'python run_ppo.py --repeat --train --model %s --steps %s --size %s' % (args.model, args.steps, args.size)
-        subprocess.call(cmd.split(' '))
-
 if args.test:
-    observation = env.reset(2, 1013)
+    observation = env.reset(0, 1013)
     pi = policy_fn('pi', env.observation_space, env.action_space)
 
     if not load_model():
