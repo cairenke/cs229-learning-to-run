@@ -1,0 +1,16 @@
+-------------------------------
+| loss_pol_surr   | -7.93e-05 |
+| loss_pol_entpen | 0         |
+| loss_vf_loss    | 5.22e-05  |
+| loss_kl         | 4.51e-07  |
+| loss_ent        | 22        |
+| ev_tdlam_before | 0.997     |
+| EpLenMean       | 111       |
+| EpRewMean       | 1         |
+| EpThisIter      | 662       |
+| EpisodesSoFar   | 6.76e+04  |
+| TimestepsSoFar  | 8.03e+06  |
+| TimeElapsed     | 2.77e+04  |
+-------------------------------
+Saving model ppo8m.type0
+Saved model ppo8m.type0 at 17:47:57

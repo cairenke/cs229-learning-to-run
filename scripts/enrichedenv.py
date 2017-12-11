@@ -4,9 +4,10 @@ import math
 from itertools import chain
 
 
-def flatten(listOfLists):
-    "Flatten one level of nesting"
-    return chain.from_iterable(listOfLists)
+def flatten(list_of_lists):
+    # Flatten one level of nesting
+    return chain.from_iterable(list_of_lists)
+
 
 class EnrichedRunEnv(RunEnv):
     STATE_PELVIS_V_X = 4
@@ -43,8 +44,8 @@ class EnrichedRunEnv(RunEnv):
         elif self.reward_type == 1:
             # use velocity
             reward = self.current_state[self.STATE_PELVIS_V_X] * 0.01
-            reward += 0.01  # small reward for still standing
-            reward += min(0, self.current_state[self.STATE_HEAD_X]) * 0.01  # penalty for head behind pelvis
+            reward += 0.01
+            reward += min(0, self.current_state[self.STATE_HEAD_X]) * 0.01
         elif self.reward_type == 2:
             reward = self.current_position - self.last_position
         else:
@@ -89,8 +90,6 @@ class EnrichedRunEnv(RunEnv):
             output[self.STATE_HEAD_V_X] = (output[self.STATE_HEAD_X] - self.last_state[self.STATE_HEAD_X]) / _stepsize
             output[self.STATE_HEAD_V_Y] = (output[self.STATE_HEAD_Y] - self.last_state[self.STATE_HEAD_Y]) / _stepsize
 
-            # print('speed vx {0} {1}  curr {2} last {3}'.format(output[self.STATE_HEAD_V_X], output[self.STATE_HEAD_V_Y], output[23], self.last_state[23]))
-
             for i in range(5):
                 offset = i * 2
                 output[self.STATE_TORSO_V_X + offset] = (output[self.STATE_TORSO_X + offset] - self.last_state[
@@ -110,6 +109,7 @@ class EnrichedRunEnv(RunEnv):
         return output
 
     def find_obstacles(self, x, limit):
+        # find closest obstacles
         obstacles = self.env_desc['obstacles']
         counter = 0
         ret = []
@@ -135,7 +135,6 @@ class EnrichedRunEnv(RunEnv):
         return ret
 
     def get_observation(self):
-
         bodies = ['head', 'pelvis', 'torso', 'toes_l', 'toes_r', 'talus_l', 'talus_r']
 
         pelvis_pos = [self.pelvis.getCoordinate(i).getValue(self.osim_model.state) for i in range(3)]
