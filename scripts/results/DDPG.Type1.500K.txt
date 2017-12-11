@@ -1,0 +1,96 @@
+[ec2-user@ip-172-31-80-18 ~]$ screen -r
+
+10000/10000 [==============================] - 798s - reward: 0.0092
+23 episodes - episode_reward: 3.955 [1.435, 8.581] - loss: 0.001 - mean_absolute_error: 0.022 - mean_q: 2.155
+
+Interval 28 (270000 steps performed)
+10000/10000 [==============================] - 733s - reward: 0.0076
+26 episodes - episode_reward: 2.897 [0.444, 6.091] - loss: 0.001 - mean_absolute_error: 0.022 - mean_q: 2.219
+
+Interval 29 (280000 steps performed)
+10000/10000 [==============================] - 924s - reward: 0.0058
+41 episodes - episode_reward: 1.408 [0.179, 7.806] - loss: 0.001 - mean_absolute_error: 0.022 - mean_q: 2.238
+
+Interval 30 (290000 steps performed)
+10000/10000 [==============================] - 1607s - reward: 0.0063
+46 episodes - episode_reward: 1.432 [0.087, 7.520] - loss: 0.001 - mean_absolute_error: 0.024 - mean_q: 2.239
+
+Interval 31 (300000 steps performed)
+10000/10000 [==============================] - 1430s - reward: 0.0077
+35 episodes - episode_reward: 2.097 [0.209, 8.675] - loss: 0.002 - mean_absolute_error: 0.026 - mean_q: 2.250
+
+Interval 32 (310000 steps performed)
+10000/10000 [==============================] - 1718s - reward: 0.0087
+37 episodes - episode_reward: 2.410 [0.685, 4.682] - loss: 0.002 - mean_absolute_error: 0.028 - mean_q: 2.241
+
+Interval 33 (320000 steps performed)
+10000/10000 [==============================] - 2044s - reward: 0.0092
+31 episodes - episode_reward: 3.037 [0.404, 9.722] - loss: 0.002 - mean_absolute_error: 0.030 - mean_q: 2.210
+
+Interval 34 (330000 steps performed)
+10000/10000 [==============================] - 1264s - reward: 0.0103
+23 episodes - episode_reward: 4.429 [1.003, 9.629] - loss: 0.002 - mean_absolute_error: 0.030 - mean_q: 2.252
+
+Interval 35 (340000 steps performed)
+10000/10000 [==============================] - 1295s - reward: 0.0103
+22 episodes - episode_reward: 4.718 [1.979, 9.965] - loss: 0.002 - mean_absolute_error: 0.029 - mean_q: 2.307
+
+Interval 36 (350000 steps performed)
+10000/10000 [==============================] - 1025s - reward: 0.0082
+24 episodes - episode_reward: 3.367 [0.413, 9.220] - loss: 0.003 - mean_absolute_error: 0.030 - mean_q: 2.340
+
+Interval 37 (360000 steps performed)
+10000/10000 [==============================] - 1167s - reward: 0.0081
+21 episodes - episode_reward: 3.861 [0.092, 9.372] - loss: 0.003 - mean_absolute_error: 0.032 - mean_q: 2.371
+
+Interval 38 (370000 steps performed)
+10000/10000 [==============================] - 1391s - reward: 0.0093
+17 episodes - episode_reward: 5.395 [0.783, 10.167] - loss: 0.003 - mean_absolute_error: 0.032 - mean_q: 2.456
+
+Interval 39 (380000 steps performed)
+10000/10000 [==============================] - 2546s - reward: 0.0086
+26 episodes - episode_reward: 3.211 [0.917, 9.917] - loss: 0.003 - mean_absolute_error: 0.031 - mean_q: 2.579
+
+Interval 40 (390000 steps performed)
+10000/10000 [==============================] - 1909s - reward: 0.0082
+21 episodes - episode_reward: 4.072 [0.702, 9.798] - loss: 0.003 - mean_absolute_error: 0.029 - mean_q: 2.662
+
+Interval 41 (400000 steps performed)
+10000/10000 [==============================] - 1183s - reward: 0.0086
+18 episodes - episode_reward: 4.766 [0.742, 9.891] - loss: 0.003 - mean_absolute_error: 0.027 - mean_q: 2.706
+
+Interval 42 (410000 steps performed)
+10000/10000 [==============================] - 1752s - reward: 0.0079
+24 episodes - episode_reward: 3.324 [0.318, 9.845] - loss: 0.003 - mean_absolute_error: 0.026 - mean_q: 2.730
+
+Interval 43 (420000 steps performed)
+10000/10000 [==============================] - 1646s - reward: 0.0084
+17 episodes - episode_reward: 4.787 [0.947, 9.829] - loss: 0.003 - mean_absolute_error: 0.025 - mean_q: 2.760
+
+Interval 44 (430000 steps performed)
+10000/10000 [==============================] - 1576s - reward: 0.0092
+22 episodes - episode_reward: 4.247 [0.458, 9.813] - loss: 0.003 - mean_absolute_error: 0.024 - mean_q: 2.745
+
+Interval 45 (440000 steps performed)
+10000/10000 [==============================] - 1853s - reward: 0.0107
+26 episodes - episode_reward: 4.131 [0.909, 9.845] - loss: 0.002 - mean_absolute_error: 0.023 - mean_q: 2.695
+
+Interval 46 (450000 steps performed)
+10000/10000 [==============================] - 1505s - reward: 0.0085
+20 episodes - episode_reward: 4.060 [0.514, 10.051] - loss: 0.002 - mean_absolute_error: 0.023 - mean_q: 2.653
+
+Interval 47 (460000 steps performed)
+10000/10000 [==============================] - 1231s - reward: 0.0098
+18 episodes - episode_reward: 5.468 [0.380, 10.318] - loss: 0.002 - mean_absolute_error: 0.023 - mean_q: 2.662
+
+Interval 48 (470000 steps performed)
+10000/10000 [==============================] - 1557s - reward: 0.0088
+19 episodes - episode_reward: 4.841 [0.699, 9.924] - loss: 0.002 - mean_absolute_error: 0.022 - mean_q: 2.635
+
+Interval 49 (480000 steps performed)
+10000/10000 [==============================] - 1361s - reward: 0.0082
+21 episodes - episode_reward: 3.765 [0.714, 10.661] - loss: 0.002 - mean_absolute_error: 0.021 - mean_q: 2.610
+
+Interval 50 (490000 steps performed)
+10000/10000 [==============================] - 757s - reward: 0.0079
+done, took 64263.853 seconds

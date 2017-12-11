@@ -1,0 +1,323 @@
+(opensim-rl) Silver-Bullet:scripts haodongma$ python run_ddpg.py --train --model ddpg500k.type3 --reward 3 --steps 500000
+Using TensorFlow backend.
+Updating Model file from 30000 to latest format...
+Loaded model gait9dof18musc_Thelen_BigSpheres.osim from file /Users/haodongma/Documents/Projects/cs229-osim-rl/osim/env/../models/gait9dof18musc.osim
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+flatten_1 (Flatten)          (None, 57)                0
+_________________________________________________________________
+dense_1 (Dense)              (None, 64)                3712
+_________________________________________________________________
+activation_1 (Activation)    (None, 64)                0
+_________________________________________________________________
+dense_2 (Dense)              (None, 32)                2080
+_________________________________________________________________
+activation_2 (Activation)    (None, 32)                0
+_________________________________________________________________
+dense_3 (Dense)              (None, 18)                594
+_________________________________________________________________
+activation_3 (Activation)    (None, 18)                0
+=================================================================
+Total params: 6,386
+Trainable params: 6,386
+Non-trainable params: 0
+_________________________________________________________________
+None
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+observation_input (InputLayer)   (None, 1, 57)         0
+____________________________________________________________________________________________________
+action_input (InputLayer)        (None, 18)            0
+____________________________________________________________________________________________________
+flatten_2 (Flatten)              (None, 57)            0           observation_input[0][0]
+____________________________________________________________________________________________________
+concatenate_1 (Concatenate)      (None, 75)            0           action_input[0][0]
+                                                                   flatten_2[0][0]
+____________________________________________________________________________________________________
+dense_4 (Dense)                  (None, 64)            4864        concatenate_1[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 64)            0           dense_4[0][0]
+____________________________________________________________________________________________________
+dense_5 (Dense)                  (None, 32)            2080        activation_4[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 32)            0           dense_5[0][0]
+____________________________________________________________________________________________________
+dense_6 (Dense)                  (None, 1)             33          activation_5[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 1)             0           dense_6[0][0]
+====================================================================================================
+Total params: 6,977
+Trainable params: 6,977
+Non-trainable params: 0
+____________________________________________________________________________________________________
+None
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+Training for 500000 steps ...
+Interval 1 (0 steps performed)
+  621/10000 [>.............................] - ETA: 727s - reward: -0.5058^Cdone, took 48.294 seconds
+(opensim-rl) Silver-Bullet:scripts haodongma$ python run_ddpg.py --train --model ddpg500k.type3 --reward 3 --steps 500000
+Using TensorFlow backend.
+Updating Model file from 30000 to latest format...
+Loaded model gait9dof18musc_Thelen_BigSpheres.osim from file /Users/haodongma/Documents/Projects/cs229-osim-rl/osim/env/../models/gait9dof18musc.osim
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #
+=================================================================
+flatten_1 (Flatten)          (None, 57)                0
+_________________________________________________________________
+dense_1 (Dense)              (None, 64)                3712
+_________________________________________________________________
+activation_1 (Activation)    (None, 64)                0
+_________________________________________________________________
+dense_2 (Dense)              (None, 32)                2080
+_________________________________________________________________
+activation_2 (Activation)    (None, 32)                0
+_________________________________________________________________
+dense_3 (Dense)              (None, 18)                594
+_________________________________________________________________
+activation_3 (Activation)    (None, 18)                0
+=================================================================
+Total params: 6,386
+Trainable params: 6,386
+Non-trainable params: 0
+_________________________________________________________________
+None
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+observation_input (InputLayer)   (None, 1, 57)         0
+____________________________________________________________________________________________________
+action_input (InputLayer)        (None, 18)            0
+____________________________________________________________________________________________________
+flatten_2 (Flatten)              (None, 57)            0           observation_input[0][0]
+____________________________________________________________________________________________________
+concatenate_1 (Concatenate)      (None, 75)            0           action_input[0][0]
+                                                                   flatten_2[0][0]
+____________________________________________________________________________________________________
+dense_4 (Dense)                  (None, 64)            4864        concatenate_1[0][0]
+____________________________________________________________________________________________________
+activation_4 (Activation)        (None, 64)            0           dense_4[0][0]
+____________________________________________________________________________________________________
+dense_5 (Dense)                  (None, 32)            2080        activation_4[0][0]
+____________________________________________________________________________________________________
+activation_5 (Activation)        (None, 32)            0           dense_5[0][0]
+____________________________________________________________________________________________________
+dense_6 (Dense)                  (None, 1)             33          activation_5[0][0]
+____________________________________________________________________________________________________
+activation_6 (Activation)        (None, 1)             0           dense_6[0][0]
+====================================================================================================
+Total params: 6,977
+Trainable params: 6,977
+Non-trainable params: 0
+____________________________________________________________________________________________________
+None
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+Training for 500000 steps ...
+Interval 1 (0 steps performed)
+10000/10000 [==============================] - 472s - reward: 0.3341
+72 episodes - episode_reward: 45.714 [-97.090, 74.104] - loss: 0.098 - mean_absolute_error: 0.306 - mean_q: 0.914
+
+Interval 2 (10000 steps performed)
+10000/10000 [==============================] - 444s - reward: 0.4265
+83 episodes - episode_reward: 51.865 [51.302, 52.550] - loss: 0.129 - mean_absolute_error: 0.404 - mean_q: 0.971
+
+Interval 3 (20000 steps performed)
+10000/10000 [==============================] - 421s - reward: 0.4099
+76 episodes - episode_reward: 53.553 [51.275, 56.060] - loss: 0.134 - mean_absolute_error: 0.421 - mean_q: 0.983
+
+Interval 4 (30000 steps performed)
+10000/10000 [==============================] - 404s - reward: 0.3970
+72 episodes - episode_reward: 55.626 [54.825, 56.125] - loss: 0.134 - mean_absolute_error: 0.423 - mean_q: 0.988
+
+Interval 5 (40000 steps performed)
+10000/10000 [==============================] - 466s - reward: 0.3968
+71 episodes - episode_reward: 55.430 [54.828, 55.975] - loss: 0.134 - mean_absolute_error: 0.425 - mean_q: 0.991
+
+Interval 6 (50000 steps performed)
+10000/10000 [==============================] - 495s - reward: 0.4325
+82 episodes - episode_reward: 53.042 [50.095, 55.922] - loss: 0.134 - mean_absolute_error: 0.427 - mean_q: 0.993
+
+Interval 7 (60000 steps performed)
+10000/10000 [==============================] - 506s - reward: 0.4433
+85 episodes - episode_reward: 52.061 [50.875, 52.893] - loss: 0.136 - mean_absolute_error: 0.429 - mean_q: 0.994
+
+Interval 8 (70000 steps performed)
+10000/10000 [==============================] - 502s - reward: 0.4378
+83 episodes - episode_reward: 52.587 [49.975, 55.718] - loss: 0.138 - mean_absolute_error: 0.432 - mean_q: 0.994
+
+Interval 9 (80000 steps performed)
+10000/10000 [==============================] - 462s - reward: 0.4091
+75 episodes - episode_reward: 54.814 [53.854, 55.875] - loss: 0.136 - mean_absolute_error: 0.429 - mean_q: 0.995
+
+Interval 10 (90000 steps performed)
+10000/10000 [==============================] - 418s - reward: 0.3976
+73 episodes - episode_reward: 54.476 [52.903, 55.999] - loss: 0.136 - mean_absolute_error: 0.428 - mean_q: 0.996
+
+Interval 11 (100000 steps performed)
+10000/10000 [==============================] - 425s - reward: 0.3888
+72 episodes - episode_reward: 53.917 [52.898, 55.753] - loss: 0.136 - mean_absolute_error: 0.429 - mean_q: 1.000
+
+Interval 12 (110000 steps performed)
+10000/10000 [==============================] - 424s - reward: 0.3902
+72 episodes - episode_reward: 54.100 [52.999, 55.665] - loss: 0.133 - mean_absolute_error: 0.423 - mean_q: 1.000
+
+Interval 13 (120000 steps performed)
+10000/10000 [==============================] - 424s - reward: 0.3905
+72 episodes - episode_reward: 53.932 [52.903, 56.009] - loss: 0.131 - mean_absolute_error: 0.418 - mean_q: 1.000
+
+Interval 14 (130000 steps performed)
+10000/10000 [==============================] - 424s - reward: 0.3898
+73 episodes - episode_reward: 54.004 [52.882, 55.888] - loss: 0.130 - mean_absolute_error: 0.413 - mean_q: 1.000
+
+Interval 15 (140000 steps performed)
+10000/10000 [==============================] - 427s - reward: 0.3895
+72 episodes - episode_reward: 54.042 [53.062, 56.187] - loss: 0.128 - mean_absolute_error: 0.409 - mean_q: 1.000
+
+Interval 16 (150000 steps performed)
+10000/10000 [==============================] - 426s - reward: 0.3881
+72 episodes - episode_reward: 53.847 [53.004, 55.949] - loss: 0.126 - mean_absolute_error: 0.403 - mean_q: 1.000
+
+Interval 17 (160000 steps performed)
+10000/10000 [==============================] - 425s - reward: 0.3891
+72 episodes - episode_reward: 54.031 [53.032, 55.794] - loss: 0.123 - mean_absolute_error: 0.397 - mean_q: 1.000
+
+Interval 18 (170000 steps performed)
+10000/10000 [==============================] - 425s - reward: 0.3884
+72 episodes - episode_reward: 53.965 [52.898, 55.987] - loss: 0.121 - mean_absolute_error: 0.393 - mean_q: 1.000
+
+Interval 19 (180000 steps performed)
+10000/10000 [==============================] - 427s - reward: 0.3890
+72 episodes - episode_reward: 53.993 [53.011, 55.778] - loss: 0.120 - mean_absolute_error: 0.389 - mean_q: 1.000
+
+Interval 20 (190000 steps performed)
+10000/10000 [==============================] - 425s - reward: 0.3887
+72 episodes - episode_reward: 53.963 [52.984, 55.543] - loss: 0.119 - mean_absolute_error: 0.387 - mean_q: 1.000
+
+Interval 21 (200000 steps performed)
+10000/10000 [==============================] - 426s - reward: 0.3878
+72 episodes - episode_reward: 53.817 [52.904, 55.604] - loss: 0.119 - mean_absolute_error: 0.387 - mean_q: 1.000
+
+Interval 22 (210000 steps performed)
+10000/10000 [==============================] - 426s - reward: 0.3900
+72 episodes - episode_reward: 53.951 [52.960, 55.562] - loss: 0.119 - mean_absolute_error: 0.387 - mean_q: 1.000
+
+Interval 23 (220000 steps performed)
+10000/10000 [==============================] - 426s - reward: 0.3907
+73 episodes - episode_reward: 53.940 [52.892, 55.640] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 24 (230000 steps performed)
+10000/10000 [==============================] - 426s - reward: 0.3883
+72 episodes - episode_reward: 53.828 [52.910, 55.928] - loss: 0.120 - mean_absolute_error: 0.387 - mean_q: 1.000
+
+Interval 25 (240000 steps performed)
+10000/10000 [==============================] - 426s - reward: 0.3886
+72 episodes - episode_reward: 53.955 [52.987, 55.373] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 26 (250000 steps performed)
+10000/10000 [==============================] - 425s - reward: 0.3889
+72 episodes - episode_reward: 54.038 [53.034, 56.037] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 27 (260000 steps performed)
+10000/10000 [==============================] - 430s - reward: 0.3885
+72 episodes - episode_reward: 53.923 [52.930, 55.627] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 28 (270000 steps performed)
+10000/10000 [==============================] - 483s - reward: 0.3884
+72 episodes - episode_reward: 53.885 [52.983, 55.387] - loss: 0.118 - mean_absolute_error: 0.385 - mean_q: 1.000
+
+Interval 29 (280000 steps performed)
+10000/10000 [==============================] - 479s - reward: 0.3889
+72 episodes - episode_reward: 53.967 [52.973, 55.956] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 30 (290000 steps performed)
+10000/10000 [==============================] - 465s - reward: 0.3895
+72 episodes - episode_reward: 54.003 [52.906, 55.484] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 31 (300000 steps performed)
+10000/10000 [==============================] - 501s - reward: 0.3903
+72 episodes - episode_reward: 54.071 [53.116, 55.974] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 32 (310000 steps performed)
+10000/10000 [==============================] - 473s - reward: 0.3900
+73 episodes - episode_reward: 53.904 [53.019, 55.434] - loss: 0.119 - mean_absolute_error: 0.387 - mean_q: 1.000
+
+Interval 33 (320000 steps performed)
+10000/10000 [==============================] - 469s - reward: 0.3890
+72 episodes - episode_reward: 53.999 [53.071, 55.895] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 34 (330000 steps performed)
+10000/10000 [==============================] - 473s - reward: 0.3907
+72 episodes - episode_reward: 54.244 [53.318, 55.995] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 35 (340000 steps performed)
+10000/10000 [==============================] - 489s - reward: 0.3880
+72 episodes - episode_reward: 53.830 [53.004, 54.956] - loss: 0.120 - mean_absolute_error: 0.388 - mean_q: 1.000
+
+Interval 36 (350000 steps performed)
+10000/10000 [==============================] - 480s - reward: 0.3887
+72 episodes - episode_reward: 53.968 [52.980, 56.263] - loss: 0.118 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 37 (360000 steps performed)
+10000/10000 [==============================] - 468s - reward: 0.3894
+72 episodes - episode_reward: 54.043 [52.980, 55.930] - loss: 0.119 - mean_absolute_error: 0.387 - mean_q: 1.000
+
+Interval 38 (370000 steps performed)
+10000/10000 [==============================] - 470s - reward: 0.3890
+72 episodes - episode_reward: 54.017 [52.908, 55.979] - loss: 0.119 - mean_absolute_error: 0.387 - mean_q: 1.000
+
+Interval 39 (380000 steps performed)
+10000/10000 [==============================] - 525s - reward: 0.3891
+72 episodes - episode_reward: 53.975 [52.912, 55.443] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 40 (390000 steps performed)
+10000/10000 [==============================] - 483s - reward: 0.3893
+72 episodes - episode_reward: 53.962 [52.951, 56.036] - loss: 0.119 - mean_absolute_error: 0.387 - mean_q: 1.000
+
+Interval 41 (400000 steps performed)
+10000/10000 [==============================] - 514s - reward: 0.3894
+72 episodes - episode_reward: 53.947 [52.993, 56.109] - loss: 0.118 - mean_absolute_error: 0.385 - mean_q: 1.000
+
+Interval 42 (410000 steps performed)
+10000/10000 [==============================] - 530s - reward: 0.3900
+72 episodes - episode_reward: 54.114 [53.007, 56.157] - loss: 0.118 - mean_absolute_error: 0.385 - mean_q: 1.000
+
+Interval 43 (420000 steps performed)
+10000/10000 [==============================] - 597s - reward: 0.3903
+73 episodes - episode_reward: 53.980 [53.000, 55.726] - loss: 0.119 - mean_absolute_error: 0.387 - mean_q: 1.000
+
+Interval 44 (430000 steps performed)
+10000/10000 [==============================] - 571s - reward: 0.3894
+72 episodes - episode_reward: 54.030 [53.184, 55.740] - loss: 0.118 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 45 (440000 steps performed)
+10000/10000 [==============================] - 521s - reward: 0.3887
+72 episodes - episode_reward: 53.918 [52.953, 55.336] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 46 (450000 steps performed)
+10000/10000 [==============================] - 569s - reward: 0.3880
+72 episodes - episode_reward: 53.881 [52.945, 55.618] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 47 (460000 steps performed)
+10000/10000 [==============================] - 564s - reward: 0.3883
+72 episodes - episode_reward: 53.917 [52.933, 55.606] - loss: 0.119 - mean_absolute_error: 0.386 - mean_q: 1.000
+
+Interval 48 (470000 steps performed)
+10000/10000 [==============================] - 501s - reward: 0.3886
+72 episodes - episode_reward: 53.895 [52.914, 55.548] - loss: 0.118 - mean_absolute_error: 0.385 - mean_q: 1.000
+
+Interval 49 (480000 steps performed)
+10000/10000 [==============================] - 510s - reward: 0.3890
+72 episodes - episode_reward: 54.002 [52.892, 55.893] - loss: 0.118 - mean_absolute_error: 0.385 - mean_q: 1.000
+
+Interval 50 (490000 steps performed)
+10000/10000 [==============================] - 486s - reward: 0.3878
+done, took 23471.783 seconds

@@ -3,13 +3,17 @@ import opensim
 import math
 from itertools import chain
 
-def flatten(listOfLists):
-    "Flatten one level of nesting"
-    return chain.from_iterable(listOfLists)
+
+def flatten(list_of_lists):
+    # Flatten one level of nesting
+    return chain.from_iterable(list_of_lists)
+
 
 class EnrichedRunEnv(RunEnv):
     STATE_PELVIS_V_X = 4
     STATE_PELVIS_V_Y = 5
+    STATE_HIP_R_A = 6
+    STATE_HIP_R_V_A = 12
     STATE_HEAD_X = 22
     STATE_HEAD_Y = 23
     STATE_HEAD_V_X = 24
@@ -19,7 +23,7 @@ class EnrichedRunEnv(RunEnv):
     STATE_TORSO_V_X = 47
     STATE_TORSO_V_Y = 48
 
-    ninput = 41 + 6 + 10 #61
+    ninput = 41 + 6 + 10  # 61
 
     def __init__(self, visualize=True, max_obstacles=3, reward_type=0):
         RunEnv.__init__(self, visualize, max_obstacles)
@@ -40,24 +44,35 @@ class EnrichedRunEnv(RunEnv):
         elif self.reward_type == 1:
             # use velocity
             reward = self.current_state[self.STATE_PELVIS_V_X] * 0.01
-            reward += 0.01  # small reward for still standing
-            reward += min(0, self.current_state[self.STATE_HEAD_X]) * 0.01  # penalty for head behind pelvis
+            reward += 0.01
+            reward += min(0, self.current_state[self.STATE_HEAD_X]) * 0.01
+        elif self.reward_type == 2:
+            reward = self.current_position - self.last_position
         else:
             v_x = self.current_state[self.STATE_PELVIS_V_X]
             v_y = self.current_state[self.STATE_PELVIS_V_Y]
             y = self.current_state[self.STATE_PELVIS_Y]
             reward = min(v_x, 4) - 0.005 * (v_x * v_x + v_y * v_y) - 0.05 * y * y + 0.02
 
-        return reward - math.sqrt(lig_pen) * 10e-8
+        if self.reward_type == 2:
+            return 10 * (reward - math.sqrt(lig_pen) * 10e-8)
+        else:
+            return reward - math.sqrt(lig_pen) * 10e-8
 
     def process_observation(self, input):
         _stepsize = 0.01
 
         output = list(input)
+        pr = output[0]
+        pvr = output[3]
         px = output[self.STATE_PELVIS_X]
         py = output[self.STATE_PELVIS_Y]
         pvx = output[self.STATE_PELVIS_V_X]
         pvy = output[self.STATE_PELVIS_V_Y]
+
+        for i in range(6):
+            output[self.STATE_HIP_R_A + i] -= pr
+            output[self.STATE_HIP_R_V_A + i] -= pvr
 
         # 'head', 'pelvis', 'torso', 'toes_l', 'toes_r', 'talus_l', 'talus_r'
         # change x and y relative to pelvis
@@ -75,13 +90,12 @@ class EnrichedRunEnv(RunEnv):
             output[self.STATE_HEAD_V_X] = (output[self.STATE_HEAD_X] - self.last_state[self.STATE_HEAD_X]) / _stepsize
             output[self.STATE_HEAD_V_Y] = (output[self.STATE_HEAD_Y] - self.last_state[self.STATE_HEAD_Y]) / _stepsize
 
-            # print('speed vx {0} {1}  curr {2} last {3}'.format(output[self.STATE_HEAD_V_X], output[self.STATE_HEAD_V_Y], output[23], self.last_state[23]))
-
             for i in range(5):
                 offset = i * 2
-                output[self.STATE_TORSO_V_X + offset] = (output[self.STATE_TORSO_X + offset] - self.last_state[self.STATE_TORSO_X + offset]) / _stepsize
-                output[self.STATE_TORSO_V_Y + offset] = (output[self.STATE_TORSO_Y + offset] - self.last_state[self.STATE_TORSO_Y + offset]) / _stepsize
-
+                output[self.STATE_TORSO_V_X + offset] = (output[self.STATE_TORSO_X + offset] - self.last_state[
+                    self.STATE_TORSO_X + offset]) / _stepsize
+                output[self.STATE_TORSO_V_Y + offset] = (output[self.STATE_TORSO_Y + offset] - self.last_state[
+                    self.STATE_TORSO_Y + offset]) / _stepsize
 
         # mass
         output[18] -= px  # mass pos xy made relative
@@ -89,17 +103,13 @@ class EnrichedRunEnv(RunEnv):
         output[20] -= pvx  # mass vel xy made relative
         output[21] -= pvy
 
-        # output[0] /= 2  # divide pr by 4
-        output[1] = 0  # abs value of pel x should not be included
-        # output[2] -= 0.9  # minus py by 0.5
-        # output[3] /= 4  # divide pvr by 4
-        # output[4] /= 8  # divide pvx by 10
-        # output[5] /= 1  # pvy is okay
+        # set pelvis x position to 0
+        output[1] = 0
 
         return output
 
-
     def find_obstacles(self, x, limit):
+        # find closest obstacles
         obstacles = self.env_desc['obstacles']
         counter = 0
         ret = []
@@ -125,7 +135,6 @@ class EnrichedRunEnv(RunEnv):
         return ret
 
     def get_observation(self):
-
         bodies = ['head', 'pelvis', 'torso', 'toes_l', 'toes_r', 'talus_l', 'talus_r']
 
         pelvis_pos = [self.pelvis.getCoordinate(i).getValue(self.osim_model.state) for i in range(3)]
@@ -138,16 +147,20 @@ class EnrichedRunEnv(RunEnv):
             self.last_position = self.current_position
             self.current_position = pelvis_pos[1]
 
-        jnts = ['hip_r','knee_r','ankle_r','hip_l','knee_l','ankle_l']
-        joint_angles = [self.osim_model.get_joint(jnts[i]).getCoordinate().getValue(self.osim_model.state) for i in range(6)]
-        joint_vel = [self.osim_model.get_joint(jnts[i]).getCoordinate().getSpeedValue(self.osim_model.state) for i in range(6)]
+        jnts = ['hip_r', 'knee_r', 'ankle_r', 'hip_l', 'knee_l', 'ankle_l']
+        joint_angles = [self.osim_model.get_joint(jnts[i]).getCoordinate().getValue(self.osim_model.state) for i in
+                        range(6)]
+        joint_vel = [self.osim_model.get_joint(jnts[i]).getCoordinate().getSpeedValue(self.osim_model.state) for i in
+                     range(6)]
 
         mass_pos = [self.osim_model.model.calcMassCenterPosition(self.osim_model.state)[i] for i in range(2)]
         mass_vel = [self.osim_model.model.calcMassCenterVelocity(self.osim_model.state)[i] for i in range(2)]
 
-        body_transforms = [[self.osim_model.get_body(body).getTransformInGround(self.osim_model.state).p()[i] for i in range(2)] for body in bodies]
+        body_transforms = [
+            [self.osim_model.get_body(body).getTransformInGround(self.osim_model.state).p()[i] for i in range(2)] for
+            body in bodies]
 
-        muscles = [ self.env_desc['muscles'][self.MUSCLES_PSOAS_L], self.env_desc['muscles'][self.MUSCLES_PSOAS_R] ]
+        muscles = [self.env_desc['muscles'][self.MUSCLES_PSOAS_L], self.env_desc['muscles'][self.MUSCLES_PSOAS_R]]
 
         # see the next obstacle
         obstacle = list(flatten(self.find_obstacles(pelvis_pos[1], 3)))
@@ -155,10 +168,10 @@ class EnrichedRunEnv(RunEnv):
         # print('obstacle {0}'.format(obstacle))
 
         # feet = [opensim.HuntCrossleyForce.safeDownCast(self.osim_model.forceSet.get(j)) for j in range(20,22)]
-        info = pelvis_pos + pelvis_vel + joint_angles + joint_vel + mass_pos + mass_vel + list(flatten(body_transforms)) + muscles + obstacle
+        info = pelvis_pos + pelvis_vel + joint_angles + joint_vel + mass_pos + mass_vel + list(
+            flatten(body_transforms)) + muscles + obstacle
         self.current_state = self.process_observation(info)
 
-        #print('step {0} head pos is {1} {2}  pelvis {3}'.format(self.istep, self.current_state[self.STATE_HEAD_X], self.current_state[self.STATE_HEAD_Y], self.current_state[self.STATE_PELVIS_Y]))
+        # print('step {0} head pos is {1} {2}  pelvis {3}'.format(self.istep, self.current_state[self.STATE_HEAD_X], self.current_state[self.STATE_HEAD_Y], self.current_state[self.STATE_PELVIS_Y]))
         # print(self.current_state)
         return self.current_state
-

@@ -1,0 +1,16 @@
+-------------------------------
+| loss_pol_surr   | -2.44e-05 |
+| loss_pol_entpen | 0         |
+| loss_vf_loss    | 6.04e-05  |
+| loss_kl         | -4.17e-07 |
+| loss_ent        | 22.1      |
+| ev_tdlam_before | 0.999     |
+| EpLenMean       | 125       |
+| EpRewMean       | 2.35      |
+| EpThisIter      | 132       |
+| EpisodesSoFar   | 1.54e+04  |
+| TimestepsSoFar  | 2.01e+06  |
+| TimeElapsed     | 2.23e+04  |
+-------------------------------
+Saving model ppo2m.type1
+Saved model ppo2m.type1 at 22:48:18

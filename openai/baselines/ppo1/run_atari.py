@@ -11,13 +11,17 @@ from baselines.common.atari_wrappers import make_atari, wrap_deepmind
 def train(env_id, num_timesteps, seed):
     from baselines.ppo1 import pposgd_simple, cnn_policy
     import baselines.common.tf_util as U
+
     rank = MPI.COMM_WORLD.Get_rank()
+
     sess = U.single_threaded_session()
     sess.__enter__()
+
     if rank == 0:
         logger.configure()
     else:
         logger.configure(format_strs=[])
+
     workerseed = seed + 10000 * MPI.COMM_WORLD.Get_rank()
     set_global_seeds(workerseed)
     env = make_atari(env_id)
