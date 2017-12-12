@@ -2,11 +2,11 @@
 from keras.models import Sequential, Model
 from keras.layers import Dense, Activation, Flatten, Input, concatenate
 from keras.optimizers import Adam
-from rl.agents import DDPGAgent
 from rl.memory import SequentialMemory
 from rl.random import OrnsteinUhlenbeckProcess
 import argparse
 from enrichedenv import EnrichedRunEnv
+from extddpg import ExtDDPGAgent
 
 
 def construct_model(env):
@@ -47,7 +47,7 @@ def construct_model(env):
     random_process = OrnsteinUhlenbeckProcess(theta=.15, mu=0., sigma=.2, size=env.noutput)
 
     # set gamma to 0.995
-    agent = DDPGAgent(nb_actions=nb_actions, actor=actor, critic=critic, critic_action_input=action_input,
+    agent = ExtDDPGAgent(nb_actions=nb_actions, actor=actor, critic=critic, critic_action_input=action_input,
                       memory=memory, nb_steps_warmup_critic=100, nb_steps_warmup_actor=100,
                       random_process=random_process, gamma=.995, target_model_update=1e-3,
                       delta_clip=1.)
