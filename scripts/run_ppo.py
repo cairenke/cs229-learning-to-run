@@ -15,24 +15,14 @@ def policy_fn(name, ob_space, ac_space):
 
 
 def train(session, env, num_timesteps, model):
-    # pposgd_simple.learn(env, policy_fn,
-    #     max_timesteps=int(num_timesteps * 1.1),
-    #     timesteps_per_actorbatch=256,
-    #     clip_param=0.2, entcoeff=0.01,
-    #     optim_epochs=4, optim_stepsize=1e-3, optim_batchsize=64,
-    #     gamma=0.99, lam=0.95,
-    #     schedule='linear'
-    # )
-    pposgd_simple.learn(env,
-                        policy_fn,
-                        max_timesteps=num_timesteps,
-                        timesteps_per_actorbatch=2048,
-                        clip_param=0.2, entcoeff=0.01,
-                        optim_epochs=10, optim_stepsize=1e-3, optim_batchsize=64,
-                        gamma=0.99, lam=0.95,
-                        adam_epsilon=1e-5,
-                        schedule='linear')
-
+    # default parameters based on run_mujoco
+    pposgd_simple.learn(env, policy_fn,
+            max_timesteps=num_timesteps,
+            timesteps_per_actorbatch=2048,
+            clip_param=0.2, entcoeff=0.0,
+            optim_epochs=10, optim_stepsize=3e-4, optim_batchsize=64,
+            gamma=0.99, lam=0.95, adam_epsilon=1e-5, schedule='linear',
+        )
     env.close()
 
     # After training is done, we save the final weights.
@@ -48,13 +38,12 @@ def main():
     logger.session().__enter__()
 
     # Command line parameters
-    parser = argparse.ArgumentParser(description='Train or test neural net motor controller')
+    parser = argparse.ArgumentParser(description='Train or test skeletal motion controller')
     parser.add_argument('--train', dest='train', action='store_true', default=True)
     parser.add_argument('--test', dest='train', action='store_false', default=True)
     parser.add_argument('--steps', dest='steps', action='store', default=10000, type=int)
     parser.add_argument('--visualize', dest='visualize', action='store_true', default=False)
     parser.add_argument('--model', dest='model', action='store', default="example.h5f")
-    parser.add_argument('--token', dest='token', action='store', required=False)
     parser.add_argument('--reward', dest='reward', action='store', default=0, type=int)
     args = parser.parse_args()
 
